@@ -34,6 +34,7 @@ export default {
   align-items: center;
   min-height: 100vh;
   font-size: 1.5rem;
+  margin: 1rem;
 }
 .head{
   font-size: 5rem;

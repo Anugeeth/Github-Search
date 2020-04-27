@@ -7,7 +7,7 @@ import axios from 'axios'
 // axios global configuration
 
 const http = axios.create({
-  baseURL: 'https://api.github.com/search/users',
+  baseURL: 'https://api.github.com/',
   headers: {
       'Content-Type': 'application/json',
   }
