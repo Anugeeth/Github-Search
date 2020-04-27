@@ -41,6 +41,25 @@ export default {
   font-size: 5rem;
   color: white;
 }
+
+.search-btn {
+  margin-top: 0.5rem;
+  text-decoration: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  background: linear-gradient(to right, #11998e, #38ef7d);
+  padding: 15px 40px;
+  border-radius: 2rem;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+
+.search-btn:hover {
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 5px 15px #11998e;
+}
+
 .search-box {
   font-family: inherit;
   width: 100%;
@@ -59,23 +78,5 @@ export default {
   border-width: 3px;
   border-image: linear-gradient(to right, #11998e, #38ef7d);
   border-image-slice: 1;
-}
-
-.search-btn {
-  margin-top: 0.5rem;
-  text-decoration: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.8);
-  background: linear-gradient(to right, #11998e, #38ef7d);
-  padding: 15px 40px;
-  border-radius: 2rem;
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  transition: all 0.2s ease-in-out;
-}
-
-.search-btn:hover {
-  color: rgba(255, 255, 255, 1);
-  box-shadow: 0 5px 15px #11998e;
 }
 </style>

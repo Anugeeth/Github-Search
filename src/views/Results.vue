@@ -12,7 +12,14 @@
             </v-col>
           </v-col>
 
-          <v-pagination v-model="page" :length="length" circle @input="getSearchData()"></v-pagination>
+          <v-pagination
+          class="page"
+            color="#11998e"
+            v-model="page"
+            :length="length"
+            circle
+            @input="getSearchData()"
+          ></v-pagination>
         </v-row>
       </v-container>
     </v-content>
@@ -27,12 +34,12 @@ export default {
     result: [],
     count: 0,
     page: 1,
-    per_page: 9,
+    per_page: 9
   }),
   computed: {
     length() {
       return Math.ceil(this.count / this.per_page);
-    }
+    },
   },
   methods: {
     getSearchData() {
@@ -49,7 +56,15 @@ export default {
       })
         .then(res => {
           const data = res.data.items;
-          this.count = res.data.total_count;
+          let total_count = res.data.total_count;
+
+          // GitHub Search API provides only up to 1,000 results for each search.
+          if(total_count > 1000){
+            this.count = 1000;
+          }
+          else{
+            this.count = total_count;
+          }
 
           // pushing the first fetched data to result array
 
@@ -62,15 +77,19 @@ export default {
             });
           });
 
-          console.log(this.result);
         })
         .catch(err => {
           console.log(err.response.data);
         });
     }
   },
-  beforeMount() {
-    this.getSearchData();
+  mounted() {
+    if (this.$route.params.query === null) {
+      alert("null");
+      this.$router.go(-1);
+    } else {
+      this.getSearchData();
+    }
   }
 };
 </script>
@@ -80,8 +99,12 @@ export default {
   color: white;
   background-color: #222222;
   min-height: 100vh;
+  padding: 1rem;
 }
 .profile-card {
   color: #222222;
+}
+.page{
+  padding: 1rem;
 }
 </style>
