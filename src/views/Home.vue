@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div class="title">
+    <p class="head">GitHub User Search</p>
+    </div>
     <form @submit.prevent>
         <input type="text" class="search-box" placeholder="Text" v-model="term" />
      
@@ -32,6 +35,10 @@ export default {
   align-items: center;
   min-height: 100vh;
   font-size: 1.5rem;
+}
+.head{
+  font-size: 5rem;
+  color: white;
 }
 .search-box {
   font-family: inherit;
