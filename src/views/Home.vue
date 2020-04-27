@@ -4,7 +4,7 @@
     <p class="head">GitHub User Search</p>
     </div>
     <form @submit.prevent>
-        <input type="text" class="search-box" placeholder="Text" v-model="term" />
+        <input type="text" class="search-box" placeholder="Enter Username...." v-model="term" />
      
         <button class="search-btn" @click="navigate">Search</button>
     </form>
@@ -31,7 +31,7 @@ export default {
 .home {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   min-height: 100vh;
   font-size: 1.5rem;
@@ -61,6 +61,7 @@ export default {
 }
 
 .search-btn {
+  margin-top: 0.5rem;
   text-decoration: none;
   border: none;
   color: rgba(255, 255, 255, 0.8);
