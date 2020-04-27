@@ -5,7 +5,6 @@
     </div>
     <form @submit.prevent>
         <input type="text" class="search-box" placeholder="Enter Username...." v-model="term" />
-     
         <button class="search-btn" @click="navigate">Search</button>
     </form>
   </div>

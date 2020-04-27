@@ -1,4 +1,6 @@
-# github-search
+# GitHub user search in vue.js
+
+
 
 ## Project setup
 ```
