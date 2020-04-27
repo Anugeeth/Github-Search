@@ -1,6 +1,22 @@
 <template>
   <div class="main">
-    <h1>This is an about page</h1>
+    <v-content>
+      <v-container fluid>
+        <v-row class="d-flex flex-row">
+              <v-col v-for="element in result" :key="element.id" cols="12" md="4" sm="6" lg="3">
+                <!-- <router-link class="ulr" :to="{ name: 'Report', params: { patientid: row.patient_name }}"> -->
+                  <v-col>
+                     <v-card lazy>
+                      <v-card-title>{{element.name}}</v-card-title>
+                      
+                    </v-card>
+                  </v-col>
+                <!-- </router-link> -->
+              </v-col>
+        </v-row>
+        
+      </v-container>
+    </v-content>
   </div>
 </template>
 

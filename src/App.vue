@@ -1,6 +1,8 @@
 <template>
   <!-- Index -->
+  <v-app>
   <router-view />
+  </v-app>
 </template>
 
 <style>
