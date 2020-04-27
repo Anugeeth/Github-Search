@@ -1,11 +1,11 @@
 <template>
   <div class="home">
     <div class="title">
-    <p class="head">GitHub User Search</p>
+      <p class="head">GitHub User Search</p>
     </div>
     <form @submit.prevent>
-        <input type="text" class="search-box" placeholder="Enter Username...." v-model="term" />
-        <button class="search-btn" @click="navigate">Search</button>
+      <input type="text" class="search-box" placeholder="Enter Username...." v-model="term" />
+      <button class="search-btn" @click="navigate">Search</button>
     </form>
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
 </script>
 
 <style scoped>
+
 .home {
   display: flex;
   flex-direction: column;
@@ -34,9 +35,9 @@ export default {
   align-items: center;
   min-height: 100vh;
   font-size: 1.5rem;
-  margin: 1rem;
+  background-color: #222222;
 }
-.head{
+.head {
   font-size: 5rem;
   color: white;
 }
