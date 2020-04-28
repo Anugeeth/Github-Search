@@ -7,6 +7,7 @@
           class="search-box"
           placeholder="Enter Username...."
           v-model="term"
+          @keypress.enter="getSearchData(true)"
         />
         <v-row class="d-flex flex-row">
           <v-col v-for="element in result" :key="element.id" cols="12" md="4" sm="6" lg="4">
@@ -70,14 +71,12 @@ export default {
       return Math.ceil(this.count / this.per_page);
     }
   },
-  watch :{
-    term : function(){
-      this.page = 1;
-      this.getSearchData();
-    }
-  },
   methods: {
-    getSearchData() {
+    getSearchData(ref = false) {
+      // for resetting page number on changing search term
+      if(ref)
+        this.page = 1;
+        
       this.result = [];
       let query = this.term;
       this.$axios({
