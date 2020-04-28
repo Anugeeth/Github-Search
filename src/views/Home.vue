@@ -40,6 +40,7 @@ export default {
 .head {
   font-size: 5rem;
   color: white;
+  line-height: 4rem;
 }
 
 .search-btn {

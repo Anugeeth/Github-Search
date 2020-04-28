@@ -26,9 +26,9 @@
             </v-col>
           </v-col>
 
-<!-- Repo List Dialog box -->
-          <v-dialog v-model="dialog" max-width="300">
-            <v-card>
+          <!-- Repo List Dialog box -->
+          <v-dialog v-model="dialog" max-width="500">
+            <v-card> 
               <v-card-title class="headline">Repositories</v-card-title>
               <v-col v-for="value in repo" :key="value.id">
                 <v-card-text>{{value.name}} : {{value.desc}}</v-card-text>
@@ -109,12 +109,12 @@ export default {
         })
         .catch(err => {
           console.log(err.response.data);
+          alert("Oops! Something Went Wrong :(")
         });
     },
 
     // get repo list of individual users
     getRepoData(url) {
-      this.dialog = true;
       this.repo = [];
       this.$axios
         .get(url)
@@ -122,10 +122,13 @@ export default {
           let repo_data = res.data;
           repo_data.forEach(val => {
             this.repo.push({
+              id : val.id,
               name: val.name,
-              desc: val.desc
+              desc: val.description || 'No Description',
             });
           });
+          // displaying dialog
+          this.dialog = true;
         })
         .catch(err => {
           console.log(err.response.data);
