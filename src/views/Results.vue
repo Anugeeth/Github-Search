@@ -7,7 +7,7 @@
           class="search-box"
           placeholder="Enter Username...."
           v-model="term"
-          @keyup="getSearchData()"
+          @keypress.enter="getSearchData()"
         />
         <v-row class="d-flex flex-row">
           <v-col v-for="element in result" :key="element.id" cols="12" md="4" sm="6" lg="4">
@@ -63,7 +63,8 @@ export default {
     result: [],
     count: 0,
     page: 1,
-    per_page: 9
+    per_page: 9,
+    repo: []
   }),
   computed: {
     length() {
@@ -86,7 +87,6 @@ export default {
         .then(res => {
           const data = res.data.items;
           let total_count = res.data.total_count;
-
           // GitHub Search API provides only up to 1,000 results for each search.
           if (total_count > 1000) {
             this.count = 1000;
@@ -94,23 +94,30 @@ export default {
             this.count = total_count;
           }
 
-          // pushing the first fetched data to result array
-
           data.forEach(element => {
-            this.$axios
-              .get(element.repo_url)
-              .then(res => {
-                console.log(res.data);
-              })
-              .catch(err => {
-                console.log(err.response.data);
-              });
-
             this.result.push({
               id: element.id,
               name: element.login,
               image: element.avatar_url,
-              repo_url: element.repos_url
+              repo: element.repos_url
+            });
+          });
+        })
+        .catch(err => {
+          console.log(err.response.data);
+        });
+    },
+
+    // get repo list of individual users
+    getRepoData(url) {
+      this.$axios
+        .get(url)
+        .then(res => {
+          let repo_data = res.data;
+          repo_data.forEach(val => {
+            this.repo.push({
+              name: val.name,
+              desc: val.desc
             });
           });
         })
