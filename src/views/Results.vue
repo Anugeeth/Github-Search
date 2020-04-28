@@ -2,18 +2,45 @@
   <div class="main">
     <v-content>
       <v-container fluid>
+        <input
+          type="text"
+          class="search-box"
+          placeholder="Enter Username...."
+          v-model="term"
+          @keyup="getSearchData()"
+        />
         <v-row class="d-flex flex-row">
           <v-col v-for="element in result" :key="element.id" cols="12" md="4" sm="6" lg="4">
+            <!-- <v-dialog v-model="dialog" max-width="500">
+
+            <template v-slot:activator="{ on }">-->
+            <!-- card main -->
             <v-col>
-              <v-card lazy class="profile-card">
+              <v-card lazy class="profile-card" v-on="on">
                 <v-img :src="element.image" height="150px"></v-img>
                 <v-card-title>{{element.name}}</v-card-title>
               </v-card>
             </v-col>
+            <!-- card main ending -->
+            <!-- </template>
+
+
+              <v-card>
+                <v-card-title class="headline">Repositories</v-card-title>
+
+                <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+
+                  <v-btn color="green darken-1" text @click="dialog = false">Close</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>-->
           </v-col>
 
           <v-pagination
-          class="page"
+            class="page"
             color="#11998e"
             v-model="page"
             :length="length"
@@ -31,6 +58,8 @@
 export default {
   name: "Results",
   data: () => ({
+    dialog: false,
+    term: "",
     result: [],
     count: 0,
     page: 1,
@@ -39,12 +68,12 @@ export default {
   computed: {
     length() {
       return Math.ceil(this.count / this.per_page);
-    },
+    }
   },
   methods: {
     getSearchData() {
       this.result = [];
-      let query = this.$route.params.query;
+      let query = this.term;
       this.$axios({
         url: "/search/users",
         method: "GET",
@@ -59,16 +88,24 @@ export default {
           let total_count = res.data.total_count;
 
           // GitHub Search API provides only up to 1,000 results for each search.
-          if(total_count > 1000){
+          if (total_count > 1000) {
             this.count = 1000;
-          }
-          else{
+          } else {
             this.count = total_count;
           }
 
           // pushing the first fetched data to result array
 
           data.forEach(element => {
+            this.$axios
+              .get(element.repo_url)
+              .then(res => {
+                console.log(res.data);
+              })
+              .catch(err => {
+                console.log(err.response.data);
+              });
+
             this.result.push({
               id: element.id,
               name: element.login,
@@ -76,7 +113,6 @@ export default {
               repo_url: element.repos_url
             });
           });
-
         })
         .catch(err => {
           console.log(err.response.data);
@@ -88,6 +124,7 @@ export default {
       alert("null");
       this.$router.go(-1);
     } else {
+      this.term = this.$route.params.query;
       this.getSearchData();
     }
   }
@@ -104,7 +141,7 @@ export default {
 .profile-card {
   color: #222222;
 }
-.page{
+.page {
   padding: 1rem;
 }
 </style>
