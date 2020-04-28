@@ -11,33 +11,34 @@
         />
         <v-row class="d-flex flex-row">
           <v-col v-for="element in result" :key="element.id" cols="12" md="4" sm="6" lg="4">
-            <!-- <v-dialog v-model="dialog" max-width="500">
-
-            <template v-slot:activator="{ on }">-->
-            <!-- card main -->
             <v-col>
-              <v-card lazy class="profile-card" v-on="on" @click="getRepoData(element.repo)">
+              <v-card lazy class="profile-card" @click="getRepoData(element.repo)">
                 <v-img :src="element.image" height="150px"></v-img>
                 <v-card-title>{{element.name}}</v-card-title>
+                <!-- <v-btn
+      color="primary"
+      dark
+      @click.stop="dialog = true"
+    >
+      Open Dialog
+                </v-btn>-->
               </v-card>
             </v-col>
-            <!-- card main ending -->
-            <!-- </template>
-
-
-              <v-card>
-                <v-card-title class="headline">Repositories</v-card-title>
-
-                <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-
-                  <v-btn color="green darken-1" text @click="dialog = false">Close</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>-->
           </v-col>
+
+<!-- Repo List Dialog box -->
+          <v-dialog v-model="dialog" max-width="300">
+            <v-card>
+              <v-card-title class="headline">Repositories</v-card-title>
+              <v-col v-for="value in repo" :key="value.id">
+                <v-card-text>{{value.name}} : {{value.desc}}</v-card-text>
+              </v-col>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="green darken-1" text @click="dialog = false">Close</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
 
           <v-pagination
             class="page"
@@ -74,9 +75,8 @@ export default {
   methods: {
     getSearchData(ref = false) {
       // for resetting page number on changing search term
-      if(ref)
-        this.page = 1;
-        
+      if (ref) this.page = 1;
+
       this.result = [];
       let query = this.term;
       this.$axios({
@@ -114,6 +114,7 @@ export default {
 
     // get repo list of individual users
     getRepoData(url) {
+      this.dialog = true;
       this.repo = [];
       this.$axios
         .get(url)
