@@ -72,16 +72,17 @@ export default {
       return Math.ceil(this.count / this.per_page);
     }
   },
+  // watchers removed as is continuously calls api which leads to limit exceeding
   methods: {
     getSearchData(ref = false) {
-      // for resetting page number on changing search term
+      let query = this.term;
+
+      // for changing url on entering new search term
       if (ref) {
-      this.page = 1;
-      this.$route.params.query = this.term
+        this.$router.push({ name: "Results", params: { query } });
       }
 
       this.result = [];
-      let query = this.term;
       this.$axios({
         url: "/search/users",
         method: "GET",
@@ -164,6 +165,6 @@ export default {
   padding: 1rem;
 }
 .btn {
-text-decoration: none;
+  text-decoration: none;
 }
 </style>

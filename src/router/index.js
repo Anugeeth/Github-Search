@@ -3,11 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
-function dynamicPropsFn (route) {
-  return {
-    path: route.params.query
-  }
-}
   const routes = [
   {
     path: '/',
@@ -17,7 +12,6 @@ function dynamicPropsFn (route) {
   {
     path: '/search/:query',
     name: 'Results',
-    props: dynamicPropsFn,
     component: () => import(/* webpackChunkName: "search" */ '../views/Results.vue')
   }
 ]
