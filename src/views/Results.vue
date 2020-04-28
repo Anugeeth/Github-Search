@@ -7,7 +7,6 @@
           class="search-box"
           placeholder="Enter Username...."
           v-model="term"
-          @keypress.enter="getSearchData()"
         />
         <v-row class="d-flex flex-row">
           <v-col v-for="element in result" :key="element.id" cols="12" md="4" sm="6" lg="4">
@@ -16,7 +15,7 @@
             <template v-slot:activator="{ on }">-->
             <!-- card main -->
             <v-col>
-              <v-card lazy class="profile-card" v-on="on">
+              <v-card lazy class="profile-card" v-on="on" @click="getRepoData(element.repo)">
                 <v-img :src="element.image" height="150px"></v-img>
                 <v-card-title>{{element.name}}</v-card-title>
               </v-card>
@@ -71,6 +70,12 @@ export default {
       return Math.ceil(this.count / this.per_page);
     }
   },
+  watch :{
+    term : function(){
+      this.page = 1;
+      this.getSearchData();
+    }
+  },
   methods: {
     getSearchData() {
       this.result = [];
@@ -110,6 +115,7 @@ export default {
 
     // get repo list of individual users
     getRepoData(url) {
+      this.repo = [];
       this.$axios
         .get(url)
         .then(res => {
