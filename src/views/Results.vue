@@ -2,33 +2,33 @@
   <div class="main">
     <v-content>
       <v-container fluid>
-        <input
-          type="text"
-          class="search-box"
-          placeholder="Enter Username...."
-          v-model="term"
-          @keypress.enter="getSearchData(true)"
-        />
+        <v-flex x1 class="pt-3">
+          <router-link to="/" class="btn">
+            <v-btn icon color="#38ef7d">
+              <v-icon>fas fa-chevron-left</v-icon>
+            </v-btn>
+          </router-link>
+          <input
+            type="text"
+            class="search-box"
+            placeholder="Enter Username...."
+            v-model="term"
+            @keypress.enter="getSearchData(true)"
+          />
+        </v-flex>
         <v-row class="d-flex flex-row">
           <v-col v-for="element in result" :key="element.id" cols="12" md="4" sm="6" lg="4">
             <v-col>
               <v-card lazy class="profile-card" @click="getRepoData(element.repo)">
                 <v-img :src="element.image" height="150px"></v-img>
                 <v-card-title>{{element.name}}</v-card-title>
-                <!-- <v-btn
-      color="primary"
-      dark
-      @click.stop="dialog = true"
-    >
-      Open Dialog
-                </v-btn>-->
               </v-card>
             </v-col>
           </v-col>
 
           <!-- Repo List Dialog box -->
           <v-dialog v-model="dialog" max-width="500">
-            <v-card> 
+            <v-card>
               <v-card-title class="headline">Repositories</v-card-title>
               <v-col v-for="value in repo" :key="value.id">
                 <v-card-text>{{value.name}} : {{value.desc}}</v-card-text>
@@ -109,7 +109,7 @@ export default {
         })
         .catch(err => {
           console.log(err.response.data);
-          alert("Oops! Something Went Wrong :(")
+          alert("Oops! Something Went Wrong :(");
         });
     },
 
@@ -122,9 +122,9 @@ export default {
           let repo_data = res.data;
           repo_data.forEach(val => {
             this.repo.push({
-              id : val.id,
+              id: val.id,
               name: val.name,
-              desc: val.description || 'No Description',
+              desc: val.description || "No Description"
             });
           });
           // displaying dialog
@@ -159,5 +159,8 @@ export default {
 }
 .page {
   padding: 1rem;
+}
+.btn {
+text-decoration: none;
 }
 </style>
