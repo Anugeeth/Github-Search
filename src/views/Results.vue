@@ -79,7 +79,9 @@ export default {
 
       // for changing url on entering new search term
       if (ref) {
-        this.$router.push({ name: "Results", params: { query } });
+        this.page = 1
+        this.$router.replace({ name: "Results", params: { query } });
+        // changed from push to replace as the pagination gets stuck at the previous value
       }
 
       this.result = [];
