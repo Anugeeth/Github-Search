@@ -75,7 +75,10 @@ export default {
   methods: {
     getSearchData(ref = false) {
       // for resetting page number on changing search term
-      if (ref) this.page = 1;
+      if (ref) {
+      this.page = 1;
+      this.$route.params.query = this.term
+      }
 
       this.result = [];
       let query = this.term;
